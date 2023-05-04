@@ -234,46 +234,46 @@
 <!-- ------------------------------------------- -->
         <!--Sports Card-->
         <div class="container border sportsCardContainer" style="max-width: 50rem;">
-            <div class="card-header bgCardHeader text-white p-3"><Strong>New York Yankees</Strong>
-            <p>4th in AL East</p>
+            <div class="card-header bgCardHeader text-white p-3">
+                <Strong id="team-name"></Strong>
+                <p id="team-group-position"></p>
+                <div >
+                    <div class="col-2"  id="away-wins-loses"></div>
+                    <div class="col-2"></div>
+                    <div class="col-2" id="home-wins-loses"></div>
+                </div>
              </div>
             <div class="row card-body text-secondary" style="justify-content:space-between;">
-                    <div class="col-4 card-title">MLB * Yesterday</div>
-                    <div class="col-2 card-title">Final</div>
+                    <div class="col-4 card-title" id="current-game-day"></div>
+                    <div class="col-2 card-title" id="current-game-status"></div>
             </div>
             <div class="row" style="padding-left: 20px; padding-right: 20px; padding-bottom: 20px; ">
                 <div class="img-container"> 
                     
                 </div>
                     <div class="d-flex align-items-center col-2">
-                        <img src="./assets/Images/yankeesLogo.png" class="img-fluid" alt="...">
+                        <img src="" class="img-fluid" alt="..." id="team-logo-away">
                     </div>
-                    <div class="d-flex align-items-center justify-content-end col-1 card-title" style="font-size: 50px;" id=scoreLeft>4</div>
-                    <div class="d-flex align-items-center justify-content-center col-6" style="text-align:center; font-size:50px";>-</div>
-                    <div class="d-flex align-items-center justify-content-start col-1 card-title" style="font-size: 50px;" id=scoreRight>2</div>
+                    <div class="d-flex align-items-center justify-content-end col-1 card-title" style="font-size: 50px;" id=away-current-score></div>
+                    <div class="d-flex align-items-center justify-content-center col-6" style="text-align:center; font-size:50px";>at</div>
+                    <div class="d-flex align-items-center justify-content-start col-1 card-title" style="font-size: 50px;" id=home-current-score></div>
                     <div class="d-flex align-items-center col-2">
-                        <img src="./assets/Images/Texas_Rangers_logo.png" class="img-fluid" alt="...">
+                        <img src="" class="img-fluid" alt="..." id="team-logo-home">
                     </div>
 
                 <div class="row">
-                    <div class="col-3" style="text-align:center;"><strong>New York Yankees</strong></div>
+                    <div class="col-3" style="text-align:center;" id="away-team-name"><strong></strong></div>
                     <div class="col-6"></div>
-                    <div class="col-3" style="text-align:center;"><strong>Texas Rangers</strong></div>
-                </div>
-                <div class=row>
-                    <div class="col-3" style="text-align:center;">(15 - 11)</div>
-                    <div class="col-6"></div>
-                    <div class="col-3" style="text-align:center;">(14 - 11)</div>
-                </div>
-                
-                
+                    <div class="col-3" style="text-align:center;" id="home-team-name"><strong></strong></div>
+                </div> 
+                   
             </div>
 <!--TEAM INNINGS TABLE SCORE-->
             <div class="row card-body border-top border-bottom">
                 <div class="col-6">
                     <h5>Team</h5>
-                    <h6 id="homeTeam">New York Yankees</h6>
-                    <h6 id="awayTeam"> Texas Rangers</h6>
+                    <h6 id="innings-away-team-name"></h6>
+                    <h6 id="innings-home-team-name"></h6>
                 </div>
                 <div class="col-6">
                     <div class="row innings">
@@ -290,33 +290,33 @@
                         <div class="col-1">H</div>
                         <div class="col-1">E</div>
                     </div>
-                    <div class="row" id="inningInputHomeTeam">
-                        <div class="col-1">0</div>
-                        <div class="col-1">0</div>
-                        <div class="col-1">0</div>
-                        <div class="col-1">0</div>
-                        <div class="col-1">0</div>
-                        <div class="col-1">1</div>
-                        <div class="col-1">2</div>
-                        <div class="col-1">1</div>
-                        <div class="col-1">0</div>
-                        <div class="col-1">2</div>
-                        <div class="col-1">5</div>
-                        <div class="col-1">0</div>
+                    <div class="row" id="innings-away">
+                        <div class="col-1"></div>
+                        <div class="col-1"></div>
+                        <div class="col-1"></div>
+                        <div class="col-1"></div>
+                        <div class="col-1"></div>
+                        <div class="col-1"></div>
+                        <div class="col-1"></div>
+                        <div class="col-1"></div>
+                        <div class="col-1"></div>
+                        <div class="col-1"></div>
+                        <div class="col-1"></div>
+                        <div class="col-1"></div>
                     </div>
-                    <div class="row" id="inningInputAwayTeam">
-                        <div class="col-1">0</div>
-                        <div class="col-1">0</div>
-                        <div class="col-1">0</div>
-                        <div class="col-1">0</div>
-                        <div class="col-1">0</div>
-                        <div class="col-1">1</div>
-                        <div class="col-1">2</div>
-                        <div class="col-1">1</div>
-                        <div class="col-1">0</div>
-                        <div class="col-1">2</div>
-                        <div class="col-1">5</div>
-                        <div class="col-1">0</div>
+                    <div class="row" id="innings-home">
+                        <div class="col-1"></div>
+                        <div class="col-1"></div>
+                        <div class="col-1"></div>
+                        <div class="col-1"></div>
+                        <div class="col-1"></div>
+                        <div class="col-1"></div>
+                        <div class="col-1"></div>
+                        <div class="col-1"></div>
+                        <div class="col-1"></div>
+                        <div class="col-1"></div>
+                        <div class="col-1"></div>
+                        <div class="col-1"></div>
                     </div>
                 </div>    
                     
@@ -325,36 +325,39 @@
 <!-- Future Game Section-->            
             <div class="row card-body">
                 <div class="col-4" style="padding:10px;">
-                    <h5>Today 4:05PM</h5>
+                    <h5 id="game-1-date"></h5>
+                    <h5 id="game-1-time"></h5>
                     <div class="row" style="flex-wrap: nowrap; padding: 5px;">
-                        <img src="./assets/Images/yankeesLogo.png" class="col-3" alt="...">
-                        <h7 class="col-9" id="homeTeam">New York Yankees</h7>
+                        <img src="./assets/Images/yankeesLogo.png" class="col-3" alt="..." id="game-1-away-logo">
+                        <h7 class="col-9" id="game-1-away-team"></h7>
                     </div>
                     <div class="row" style="flex-wrap: nowrap;">
-                        <img src="./assets/Images/Texas_Rangers_logo.png" class="col-3" alt="...">
-                        <h7 class="col-9" id="awayTeam">Texas Rangers</h7>
+                        <img src="./assets/Images/Texas_Rangers_logo.png" class="col-3" alt="..." id="game-1-home-logo">
+                        <h7 class="col-9" id="game-1-home-team"></h7>
                     </div>
                 </div>
                 <div class="col-4" style="padding:10px;">
-                    <h5>Tomorrow 4:05PM</h5>
+                    <h5 id="game-2-date"></h5>
+                    <h5 id="game-2-time"></h5>
                     <div class="row" style="flex-wrap: nowrap; padding: 5px;">
-                        <img src="./assets/Images/yankeesLogo.png" class="col-3" alt="...">
-                        <h7 class="col-9" id="homeTeam">New York Yankees</h7>
+                        <img src="./assets/Images/yankeesLogo.png" class="col-3" alt="..." id="game-2-away-logo">
+                        <h7 class="col-9" id="game-2-away-team"></h7>
                     </div>
                     <div class="row" style="flex-wrap: nowrap;">
-                        <img src="./assets/Images/Texas_Rangers_logo.png" class="col-3" alt="...">
-                        <h7 class="col-9" id="awayTeam">Texas Rangers</h7>
+                        <img src="" class="col-3" alt="..." id="game-2-home-logo">
+                        <h7 class="col-9" id="game-2-home-team"></h7>
                     </div>
                 </div>
                 <div class="col-4" style="padding:10px;">
-                    <h5>(Tuesday May 2) 4:05PM</h5>
+                    <h5 id="game-3-date"></h5>
+                    <h5 id="game-3-time"></h5>
                     <div class="row" style="flex-wrap: nowrap; padding: 5px;">
-                        <img src="./assets/Images/yankeesLogo.png" class="col-3" alt="...">
-                        <h7 class="col-9" id="homeTeam">New York Yankees</h7>
+                        <img src="" class="col-3" alt="..." id="game-3-away-logo">
+                        <h7 class="col-9" id="game-3-away-team"></h7>
                     </div>
                     <div class="row" style="flex-wrap: nowrap;">
-                        <img src="./assets/Images/Texas_Rangers_logo.png" class="col-3" alt="...">
-                        <h7 class="col-9" id="awayTeam">Texas Rangers</h7>
+                        <img src="" class="col-3" alt="..." id="game-3-home-logo">
+                        <h7 class="col-9" id="game-3-home-team"></h7>
                     </div>
                 </div>               
             </div>
@@ -366,5 +369,6 @@
         crossorigin="anonymous">
       </script>
     <script src="./assets/js/scriptYelp.js"></script>
+    <script src="./assets/js/baseballAPI.js"></script>
 </body>
 </html>
