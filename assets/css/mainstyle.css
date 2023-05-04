@@ -1,0 +1,191 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: black;
+}
+
+nav header {
+    display: flex;
+    height: 1px;
+    justify-content: space-between;
+    padding: 15px;
+    background-color: #212529;
+  }
+  
+  .logo img {
+    width: 10rem;
+    height: 10rem;
+    padding-left: 10rem;
+    justify-content: left;
+  }
+
+  #brand-name {
+    justify-content: center;
+    font-size: 4.2rem;
+    font-family: 'Nerko One';
+    padding: 10px;
+    color: #f4f5f0;
+  }
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-btn {
+    background-color: #212529;
+    color: white;
+    padding: 12px;
+    font-size: 13px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .menu-icon {
+    justify-content: right;
+    padding: 1rem;
+    font-size: 20px;
+  }
+  
+  .dropdown-content {
+    background-color: #212529;
+    display: none;
+    position: absolute;
+    right: 0;
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    color: green;
+    padding: 14px 18px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-content a:hover {
+    background-color: red;
+  }
+
+/* Carousel slider*/
+.carousel img {
+	height: 24rem;
+  width: 1000px;
+	object-fit: contain;
+  margin-top: 35px;
+}
+
+    /*Menu cards */
+
+  #titleourmenu {
+    font-family: 'Nerko One';
+    font-size: 55rem;
+    text-align: left;
+    padding-left: 3%;
+    }
+
+  .card {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .card-title {
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+  }
+
+  .card img {
+    width: 45%;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: calc(0.25rem - 1px);
+  }
+
+   /* Float four columns side by side */
+  .column {
+    float: left;
+    width: 5%;
+    padding: 0 10px;
+  }
+
+  /* Responsive columns - one column layout (vertical) on small screens */
+  @media screen and (max-width: 600px) {
+    .column {
+      width: 20%;
+      display: block;
+      margin-bottom: 20px;
+    }
+  }
+
+/* footer */
+@import url(//fonts.googleapis.com/css?family=Montserrat:300,400,500);
+.contact4 {
+  font-family: "Montserrat", sans-serif;
+	color: #8d97ad;
+  font-weight: 300;
+}
+
+.contact4 h1, .contact4 h2, .contact4 h3, .contact4 h4, .contact4 h5, .contact4 h6 {
+  color: #3e4555;
+}
+
+.contact4 .font-weight-medium {
+	font-weight: 500;
+}
+
+.contact4 .form-control {
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.contact4 .form-control:focus {
+  border-color: #ffffff;
+}
+
+.contact4 input::-webkit-input-placeholder,
+.contact4 textarea::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.contact4 input:-ms-input-placeholder,
+.contact4 textarea:-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.contact4 input::placeholder,
+.contact4 textarea::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.contact4 .right-image {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  top: 0;
+}
+
+.contact4.bg-info {
+    background-color: #212529 !important;
+}
+
+.contact4 .text-inverse {
+    color: #3e4555 !important;
+}
+
+@media (min-width: 1024px) {
+	.contact4 .contact-box {
+    padding: 80px 105px 80px 0px;
+	}
+}
+
+@media (max-width: 767px) {
+	.contact4 .contact-box {
+    padding-left: 15px;
+    padding-right: 15px;
+	}
+}
+
+@media (max-width: 1023px) {
+	.contact4 .right-image {
+			position: relative;
+			bottom: -95px;
+	}
+}
