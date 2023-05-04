@@ -1,0 +1,42 @@
+.custom-card {
+    padding-right:  0;
+    padding-left: 0;
+}
+.checked{
+    color:orange;
+}
+
+.card-footer{
+    background-color: white;
+    border-style: none;
+}
+
+.bgCardHeader{
+    background-color: rgb(23,78,166);
+}
+
+.card-footer {
+    background-color: lightgray;
+    border-style:none;
+    padding: 10px;
+}
+
+.sportsCardContainer{
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.innings{
+    padding: 0%;
+}
+.row{
+    --bs-gutter-x: 0rem;
+}
+.scroll {
+    max-height: 100px;
+    overflow: scroll;
+}
+.img-container{
+    background-image: url("../Images/yankeesLogo.png");
+    background-size:contain;
+}
