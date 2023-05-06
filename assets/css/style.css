@@ -37,6 +37,6 @@
     overflow: scroll;
 }
 .img-container{
-    background-image: url("../Images/yankeesLogo.png");
+    /* background-image: url("../Images/yankeesLogo.png"); */
     background-size:contain;
 }

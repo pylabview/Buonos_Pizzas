@@ -53,6 +53,3 @@ function getYelpApi() {
     };
   
 getYelpApi();
-
-
-

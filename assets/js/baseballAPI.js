@@ -4,6 +4,8 @@ var yankeesID = 25;
 var redsoxID = 5;
 var dayIndex = 0;
 var yankeesImage = "./assets/Images/yankeesLogo.png";
+var athleticsImage = "./assets/Images/athleticsLogo.png";
+var chosenTeams = [];
 
 var dayObject = { 
     today : dayjs().format('YYYY-MM-DD'),
@@ -22,7 +24,8 @@ var statsObject = {
     group: "",
     position: 0,
     loses: 0,
-    wins: 0
+    wins: 0,
+    id: ""
 }
 
 var gameTodayObject = {
@@ -72,7 +75,61 @@ var gameThreeObject = {
 
 var dayArr = [dayObject.today, dayObject.dayAfter1, dayObject.dayAfter2, dayObject.dayAfter3, dayObject.dayAfter4, dayObject.dayAfter5, dayObject.dayAfter6, dayObject.dayAfter7];
 
-start(yankeesID, season);
+document.querySelector('#choose-team-button').addEventListener('click', chooseTeam);
+
+function chooseTeam() {
+    dayIndex = 0;
+
+    var team = document.getElementById("team-input").value;
+    document.getElementById("team-input").value = '';
+
+    var url =  startPoint + '/teams?search=' + team;
+    
+    var options = {
+	    method: 'GET',
+	    headers: {
+		    'content-type': 'application/octet-stream',
+		    'X-RapidAPI-Key': 'b321e401e5msh1daad72711c493dp1e4557jsn35e8c3bfc80a',
+		    'X-RapidAPI-Host': 'api-baseball.p.rapidapi.com'
+	    }
+    };
+
+    try {
+        fetch(url, options).then(function (response) {
+            response.json().then(function (data) {     
+                if (data.response.length !== 0) {
+                    console.log(data);
+                    // var id = data.response[0].id;
+                    // start(id, season);
+                    for (i = 0; i < data.response.length; i++) {
+                        var newTeam = document.createElement('button');
+                        newTeam.textContent = data.response[i].name;
+                        newTeam.id = "btn-" + data.response[i].id;
+                        document.getElementById("add-buttons").appendChild(newTeam);
+                        document.querySelector('#' + newTeam.id).addEventListener('click', selectTeam);
+                    }
+
+                    function selectTeam() {
+                        console.log(this.id);
+                        newID = this.id.split('-');
+                        console.log(newID);
+                        finalID = newID[1];
+                        start(finalID, season);
+                        parent = document.getElementById('add-buttons');
+                        console.log(parent);
+                        parent.innerHTML = '';
+                    }
+                }
+                else {
+                    alert('Please enter a valid team name!!!');
+                }
+            })
+        })
+    } 
+    catch (error) {
+        console.error(error);
+    }
+}
 
 function start(_teamID, _season) {
     getStats(_teamID, _season);
@@ -94,6 +151,8 @@ function getStats(_teamID, _season) {
     try {
         fetch(url, options).then(function (response) {
             response.json().then(function (data) {
+                console.log(data);
+                statsObject.id = data.response[0][1].team.id;
                 statsObject.name = data.response[0][1].team.name;
                 statsObject.logo = data.response[0][1].team.logo;
                 statsObject.group = data.response[0][1].group.name;
@@ -101,6 +160,13 @@ function getStats(_teamID, _season) {
                 statsObject.loses = data.response[0][1].games.lose.total;
                 statsObject.wins = data.response[0][1].games.win.total;
                 displayStats();
+
+                document.querySelector('#add-to-favorites').addEventListener('click', addToFavorites)
+
+                function addToFavorites() {
+                    console.log("favorite")
+                    console.log(statsObject.id);
+                }
             })
         })
     } 
@@ -162,12 +228,18 @@ function getGameToday(_teamID, _season, _date) {
                         
                         gameTodayObject.awayLogo = yankeesImage;
                     }
+                    else if (gameTodayObject.awayName == "Oakland Athletics") {
+                        gameTodayObject.awayLogo = athleticsImage;
+                    }
                     else {
                         gameTodayObject.awayLogo = awayLogo;
                     }
 
                     if (gameTodayObject.homeName == "New York Yankees") {
                         gameTodayObject.homeLogo = yankeesImage;
+                    }
+                    else if (gameTodayObject.homeName == "Oakland Athletics") {
+                        gameTodayObject.homeLogo = athleticsImage;
                     }
                     else {
                         gameTodayObject.homeLogo = homeLogo;
@@ -192,6 +264,7 @@ function getGameToday(_teamID, _season, _date) {
                     var suffix = hour <= 12 ? 'AM':'PM';
                     hour = (hour % 12) || 12;
                     gameTodayObject.time = hour + ":" + minute + ' ' + suffix;
+                    console.log(gameTodayObject);
                     displayGameToday();
                     dayIndex++;
                     getGameOne(_teamID, _season, dayArr[dayIndex]);
@@ -484,6 +557,12 @@ function getGameOne(_teamID, _season, _date) {
                     if (gameOneObject.awayName == "New York Yankees") {
                         gameOneObject.awayLogo = yankeesImage;
                     }
+                    else if (gameOneObject.awayName == "Oakland Athletics") {
+                        gameOneObject.awayLogo = athleticsImage;
+                    }
+                    // else if () {
+                        //tigers id 12
+                    // }
                     else {
                         gameOneObject.awayLogo = awayLogo;
                     }
@@ -491,6 +570,12 @@ function getGameOne(_teamID, _season, _date) {
                     if (gameOneObject.homeName == "New York Yankees") {
                         gameOneObject.homeLogo = yankeesImage;
                     }
+                    else if (gameOneObject.homeName == "Oakland Athletics") {
+                        gameOneObject.homeLogo = athleticsImage;
+                    }
+                    // else if () {
+
+                    // }
                     else {
                         gameOneObject.homeLogo = homeLogo;
                     }
@@ -557,16 +642,20 @@ function getGameTwo(_teamID, _season, _date) {
                     homeLogo = data.response[0].teams.home.logo;
 
                     if (gameTwoObject.awayName == "New York Yankees") {
-                        var away = yankeesImage;
-                        gameTwoObject.awayLogo = away;
+                        gameTwoObject.awayLogo = yankeesImage;
+                    }
+                    else if (gameTwoObject.awayName == "Oakland Athletics") {
+                        gameTwoObject.awayLogo = athleticsImage;
                     }
                     else {
                         gameTwoObject.awayLogo = awayLogo;
                     }
 
                     if (gameTwoObject.homeName == "New York Yankees") {
-                        var home = yankeesImage;
-                        gameTwoObject.homeLogo = home;
+                        gameTwoObject.homeLogo = yankeesImage;
+                    }
+                    else if (gameTwoObject.homeName == "Oakland Athletics") {
+                        gameTwoObject.homeLogo = athleticsImage;
                     }
                     else {
                         gameTwoObject.homeLogo = homeLogo;
@@ -617,6 +706,7 @@ function getGameThree(_teamID, _season, _date) {
                     getGameThree(_teamID, _season, dayArr[dayIndex]);
                 }
                 else {
+                    console.log(data);
                     var time  = data.response[0].time;
                     var splitTime = time.split(':');
                     var hour = splitTime[0];
@@ -637,6 +727,9 @@ function getGameThree(_teamID, _season, _date) {
                         var away = yankeesImage;
                         gameThreeObject.awayLogo = away;
                     }
+                    else if (gameThreeObject.awayName == "Oakland Athletics") {
+                        gameThreeObject.awayLogo = athleticsImage;
+                    }
                     else {
                         gameThreeObject.awayLogo = awayLogo;
                     }
@@ -644,6 +737,9 @@ function getGameThree(_teamID, _season, _date) {
                     if (gameThreeObject.homeName == "New York Yankees") {
                         var home = yankeesImage;
                         gameThreeObject.homeLogo = home;
+                    }
+                    else if (gameThreeObject.homeName == "Oakland Athletics") {
+                        gameThreeObject.homeLogo = athleticsImage;
                     }
                     else {
                         gameThreeObject.homeLogo = homeLogo;
