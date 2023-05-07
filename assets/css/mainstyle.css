@@ -3,83 +3,75 @@ body {
   color: black;
 }
 
-nav header {
-    display: flex;
-    height: 1px;
-    justify-content: space-between;
-    padding: 15px;
-    background-color: #212529;
-  }
-  
-  .logo img {
-    width: 10rem;
-    height: 10rem;
-    padding-left: 10rem;
-    justify-content: left;
-  }
+navbar-brand img {
+  height: 50px;
+  width: 50px;
+}
 
-  #brand-name {
-    justify-content: center;
-    font-size: 4.2rem;
-    font-family: 'Nerko One';
-    padding: 10px;
-    color: #f4f5f0;
+@media (max-width: 991.98px) {
+  .navbar-collapse {
+    position: fixed;
+    top: 56px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 56px);
+    background-color: #343a40;
+    padding-top: 1rem;
+    z-index: 1000;
+    overflow-y: auto;
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(-100%);
   }
   
-  .dropdown {
-    position: relative;
-    display: inline-block;
+  .navbar-collapse.show {
+    transform: translateX(0%);
   }
   
-  .dropdown-btn {
-    background-color: #212529;
-    color: white;
-    padding: 12px;
-    font-size: 13px;
-    border: none;
-    cursor: pointer;
+  .navbar-nav {
+    flex-direction: column;
   }
   
-  .menu-icon {
-    justify-content: right;
-    padding: 1rem;
-    font-size: 20px;
+  .nav-item {
+    margin-right: 0 !important;
+    margin-bottom: .5rem;
   }
   
-  .dropdown-content {
-    background-color: #212529;
-    display: none;
-    position: absolute;
-    right: 0;
-    z-index: 1;
+  .nav-link {
+    padding: .5rem 1rem;
+    color: #fff !important;
   }
-  
-  .dropdown-content a {
-    color: green;
-    padding: 14px 18px;
-    text-decoration: none;
-    display: block;
-  }
-  
-  .dropdown-content a:hover {
-    background-color: red;
-  }
+}
 
 /* Carousel slider*/
-.carousel img {
-	height: 24rem;
-  width: 1000px;
-	object-fit: contain;
-  margin-top: 35px;
+.carousel {
+  width: 100%;
+  height: auto;
+  padding-top: 15px;
+  padding-bottom: 10px;
+  text-align: center;
 }
+
+.carousel-caption {
+  padding-bottom: 25px;
+}
+
+@media screen and (max-height: 1000px) {
+  .carousel-item {
+  height: 24rem;
+  }}
+
+  @media screen and (min-width: 768px) {
+    .carousel-containers {
+      padding: 1.5em 0;
+    }
+  }
 
     /*Menu cards */
 
-  #titleourmenu {
-    font-family: 'Nerko One';
-    font-size: 55rem;
+.text-block {
+    font-size: 45rem;
     text-align: left;
-    padding-left: 3%;
+    margin-right: 30%;
     }
 
   .card {
@@ -90,7 +82,7 @@ nav header {
   .card-title {
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 12px;
+    font-size: 8px;
   }
 
   .card img {
@@ -104,6 +96,35 @@ nav header {
     float: left;
     width: 5%;
     padding: 0 10px;
+  }
+
+  table {
+    border-collapse: separate;
+    border-spacing: 20px; 
+    margin: auto; 
+    background-color: transparent; 
+  }
+  
+  td {
+    text-align: center;
+  }
+  
+  td img {
+    float: left;
+  }
+  
+  #background-table {
+  
+    background-color: #212529;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+  
+   background-image: url('../images/logo.png');
+   background-repeat: repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+    color: white; 
   }
 
   /* Responsive columns - one column layout (vertical) on small screens */
