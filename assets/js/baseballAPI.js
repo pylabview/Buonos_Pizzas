@@ -5,7 +5,7 @@ var redsoxID = 5;
 var dayIndex = 0;
 var yankeesImage = "./assets/Images/yankeesLogo.png";
 var athleticsImage = "./assets/Images/athleticsLogo.png";
-var chosenTeams = [];
+var favoriteTeams = [];
 
 var dayObject = { 
     today : dayjs().format('YYYY-MM-DD'),
@@ -77,6 +77,40 @@ var dayArr = [dayObject.today, dayObject.dayAfter1, dayObject.dayAfter2, dayObje
 
 document.querySelector('#choose-team-button').addEventListener('click', chooseTeam);
 
+init();
+
+function init() {
+    var locaArr = JSON.parse(localStorage.getItem('favorite-team'));
+
+    if (locaArr === null) {
+        var favoriteTeamsObject = {
+            id: "",
+            name: ""
+        }
+
+        favoriteTeamsObject.id = 25; 
+        favoriteTeamsObject.name = 'New York Yankees';
+
+        favoriteTeams.push(favoriteTeamsObject);
+        localStorage.setItem('favorite-team', JSON.stringify(favoriteTeams));
+        init();
+    }
+    else {
+        for (var i = 0; i < locaArr.length; i++) {
+            var newTeam = document.createElement('button');
+            newTeam.textContent = locaArr[i].name;
+            document.getElementById("favorite-teams-list").appendChild(newTeam);
+
+            favoriteTeams.push(newTeam);
+            console.log(favoriteTeams);
+        }
+
+        
+        console.log(locaArr);
+        start(locaArr[0].id, season);
+    }
+}
+
 function chooseTeam() {
     dayIndex = 0;
 
@@ -98,9 +132,6 @@ function chooseTeam() {
         fetch(url, options).then(function (response) {
             response.json().then(function (data) {     
                 if (data.response.length !== 0) {
-                    console.log(data);
-                    // var id = data.response[0].id;
-                    // start(id, season);
                     for (i = 0; i < data.response.length; i++) {
                         var newTeam = document.createElement('button');
                         newTeam.textContent = data.response[i].name;
@@ -110,13 +141,10 @@ function chooseTeam() {
                     }
 
                     function selectTeam() {
-                        console.log(this.id);
                         newID = this.id.split('-');
-                        console.log(newID);
                         finalID = newID[1];
                         start(finalID, season);
                         parent = document.getElementById('add-buttons');
-                        console.log(parent);
                         parent.innerHTML = '';
                     }
                 }
@@ -132,6 +160,7 @@ function chooseTeam() {
 }
 
 function start(_teamID, _season) {
+    console.log('start')
     getStats(_teamID, _season);
     getGameToday(_teamID, _season, dayArr[dayIndex]);
 }
@@ -151,7 +180,6 @@ function getStats(_teamID, _season) {
     try {
         fetch(url, options).then(function (response) {
             response.json().then(function (data) {
-                console.log(data);
                 statsObject.id = data.response[0][1].team.id;
                 statsObject.name = data.response[0][1].team.name;
                 statsObject.logo = data.response[0][1].team.logo;
@@ -161,11 +189,18 @@ function getStats(_teamID, _season) {
                 statsObject.wins = data.response[0][1].games.win.total;
                 displayStats();
 
-                document.querySelector('#add-to-favorites').addEventListener('click', addToFavorites)
+                var indicator = document.querySelector('#add-to-favorites');
 
-                function addToFavorites() {
-                    console.log("favorite")
-                    console.log(statsObject.id);
+                for (var i = 0; i < favoriteTeams.length; i++) {
+                    console.log(favoriteTeams);
+                    
+                    if (favoriteTeams[i].id == statsObject.id) {
+                        indicator.textContent = "⭕off!"
+                    }
+                    else {
+                        indicator.textContent = "🟡on!"
+                        document.querySelector('#add-to-favorites').addEventListener('click', addToFavorites);
+                    }
                 }
             })
         })
@@ -173,6 +208,19 @@ function getStats(_teamID, _season) {
     catch (error) {
         console.error(error);
     }
+}
+
+function addToFavorites() {
+    var favoriteTeamsObject = {
+        id: "",
+        name: ""
+    }
+
+    favoriteTeamsObject.id = statsObject.id; 
+    favoriteTeamsObject.name = statsObject.name;
+    favoriteTeams.push(favoriteTeamsObject);
+    localStorage.setItem('favorite-team', JSON.stringify(favoriteTeams));
+    init();
 }
 
 function displayStats() {
@@ -264,7 +312,6 @@ function getGameToday(_teamID, _season, _date) {
                     var suffix = hour <= 12 ? 'AM':'PM';
                     hour = (hour % 12) || 12;
                     gameTodayObject.time = hour + ":" + minute + ' ' + suffix;
-                    console.log(gameTodayObject);
                     displayGameToday();
                     dayIndex++;
                     getGameOne(_teamID, _season, dayArr[dayIndex]);
@@ -706,7 +753,6 @@ function getGameThree(_teamID, _season, _date) {
                     getGameThree(_teamID, _season, dayArr[dayIndex]);
                 }
                 else {
-                    console.log(data);
                     var time  = data.response[0].time;
                     var splitTime = time.split(':');
                     var hour = splitTime[0];
