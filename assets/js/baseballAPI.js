@@ -143,6 +143,8 @@ function chooseTeam() {
                     function selectTeam() {
                         newID = this.id.split('-');
                         finalID = newID[1];
+                        console.log('--->finalID: ',typeof finalID);
+                        console.log('--->season: ',typeof season);
                         start(finalID, season);
                         parent = document.getElementById('add-buttons');
                         parent.innerHTML = '';
@@ -813,3 +815,6 @@ function displayGameThree() {
     var homeTeam = document.querySelector('#game-3-home-team');
     homeTeam.textContent = gameThreeObject.homeName;
 }
+
+// Initial page loading starts with the Yankees team
+start('25',2023);
