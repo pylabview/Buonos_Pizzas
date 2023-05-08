@@ -56,16 +56,31 @@
 <!-- ------------------------------------------- -->
         <!--Sports Card-->
 
-        Choose a MLB team: <input type="text" id="team-input" value="">
-        <button id="choose-team-button">Choose Team</button>
-        <p id="choose-team-name"></p>
-        <div id="add-buttons"></div>
-        <select id="favorite-teams-list">
-          <option value="Select a Team">Select a Team</option>
-        </select>
-
+        <div class="container pt-5 px-5">
+          <div class="col-md-6 offset-md-3">
+            <div class="input-group">
+              <input type="text" id="team-input" class="form-control mr-2" style="margin-right: 10px;" placeholder="Choose a MLB team">
+              
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="button" id="choose-team-button">Choose Team</button>
+              </div>
+            </div>
+            <div id="suggestion-container">
+              <ul id="suggestion-list" class="list-group"></ul>
+            </div>
+            <p id="choose-team-name"></p>
+            <div id="add-buttons">
+              
+            </div>
+          </div>
+          <div class="col-md-6 offset-md-3">
+            <select id="favorite-teams-list">
+              <option value="Select a Team">Select a Team</option>
+            </select>
+          </div>
+        </div>
         <div id="favorite-teams-list"></div>
-
+      <!-- End of Changes -->
         <div class="container border sportsCardContainer" style="max-width: 50rem;">
             <div class="card-header bgCardHeader text-white p-3">
                 <h3 id="team-name"></h3>
