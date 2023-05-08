@@ -6,6 +6,8 @@ var dayIndex = 0;
 var yankeesImage = "./assets/Images/yankeesLogo.png";
 var athleticsImage = "./assets/Images/athleticsLogo.png";
 var chosenTeams = [];
+var cTeam = "";
+
 
 var dayObject = { 
     today : dayjs().format('YYYY-MM-DD'),
@@ -134,13 +136,14 @@ function chooseTeam() {
 }
 
 function start(_teamID, _season) {
-    getStats(_teamID, _season);
+    var currentTeam = getStats(_teamID, _season);
     getGameToday(_teamID, _season, dayArr[dayIndex]);
+    return currentTeam;
 }
 
 function getStats(_teamID, _season) {
+    
     var url =  startPoint + '/standings?league=1&season=' + _season + '&team=' + _teamID;
-
     var options = {
 	    method: 'GET',
 	    headers: {
@@ -149,8 +152,9 @@ function getStats(_teamID, _season) {
 		    'X-RapidAPI-Host': 'api-baseball.p.rapidapi.com'
 	    }
     };
-
+    
     try {
+        
         fetch(url, options).then(function (response) {
             response.json().then(function (data) {
                 console.log(data);
@@ -162,18 +166,20 @@ function getStats(_teamID, _season) {
                 statsObject.loses = data.response[0][1].games.lose.total;
                 statsObject.wins = data.response[0][1].games.win.total;
                 displayStats();
-
+                console.log('current Team', statsObject.name);
                 document.querySelector('#add-to-favorites').addEventListener('click', addToFavorites)
-
+                currentTeam = statsObject.name;
                 function addToFavorites() {
                     console.log("favorite")
                     console.log(statsObject.id);
                 }
+                storeLocalFav(statsObject.id,2023, statsObject.name);
+                cTeam = statsObject.name;
+                console.log('From Try',cTeam);
             })
-        })
+             })
     } 
     catch (error) {
-        console.error(error);
     }
 }
 
@@ -770,5 +776,41 @@ function displayGameThree() {
     homeTeam.textContent = gameThreeObject.homeName;
 }
 
+function storeLocalFav(_teamID, _season, _teamName) {
+    var favTeam = {
+        teamID : _teamID,
+        season : _season,
+        teamName: _teamName,
+    }
+
+    var buonosFavStored = JSON.parse(localStorage.getItem("buonosFav"));
+
+    if (buonosFavStored === null) {
+        arrayOfFavTeams = [];
+        arrayOfFavTeams.push(favTeam);
+        console.log(arrayOfFavTeams);
+        localStorage.setItem("buonosFav", JSON.stringify(arrayOfFavTeams));
+    }else{
+        for (var i = 0; i < buonosFavStored.length; i++) {
+            if (buonosFavStored[i].teamID == _teamID && buonosFavStored[i].season == _season && buonosFavStored[i].teamName == _teamName) {
+            console.log('Team is already a fav? TRUE');
+            console.log('Team will not stored, as it already exist')
+        } else {
+            console.log('Team is already a fav? FALSE');
+            var currentBuonosFavStored = JSON.parse(localStorage.getItem("buonosFav"));
+            currentBuonosFavStored.push(favTeam);
+            localStorage.setItem("buonosFav", JSON.stringify(currentBuonosFavStored));
+        }
+    }
+
+    }
+
+
+
+
+}
+
 // Initial page loading starts with the Yankees team
 start('25',2023);
+
+
