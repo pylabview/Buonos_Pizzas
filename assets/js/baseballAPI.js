@@ -7,7 +7,7 @@ var yankeesImage = "./assets/Images/yankeesLogo.png";
 var athleticsImage = "./assets/Images/athleticsLogo.png";
 var chosenTeams = [];
 var cTeam = "";
-
+var dropDownFavs = document.getElementById("favorite-teams-list");
 
 var favoriteTeams = [];
 
@@ -867,8 +867,17 @@ function storeLocalFav(_teamID, _season, _teamName) {
 
 
 }
+function renderFav(){
+var buonosFavStored = JSON.parse(localStorage.getItem("buonosFav"));
 
+for (let i = 0; i < buonosFavStored.length; i++) {
+var optionFav = document.createElement("option");
+optionFav.text=buonosFavStored[i].teamName;
+dropDownFavs.add(optionFav);
+}
+
+}
 // Initial page loading starts with the Yankees team
 start('25',2023);
-
+renderFav();
 
