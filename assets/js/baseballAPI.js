@@ -167,12 +167,10 @@ function chooseTeam() {
 }
 
 function start(_teamID, _season) {
-    var currentTeam = getStats(_teamID, _season);
 
     console.log('start')
     getStats(_teamID, _season);
     getGameToday(_teamID, _season, dayArr[dayIndex]);
-    return currentTeam;
 }
 
 function getStats(_teamID, _season) {
@@ -191,6 +189,7 @@ function getStats(_teamID, _season) {
         
         fetch(url, options).then(function (response) {
             response.json().then(function (data) {
+                console.log(data);
                 statsObject.id = data.response[0][1].team.id;
                 statsObject.name = data.response[0][1].team.name;
                 statsObject.logo = data.response[0][1].team.logo;
@@ -199,9 +198,9 @@ function getStats(_teamID, _season) {
                 statsObject.loses = data.response[0][1].games.lose.total;
                 statsObject.wins = data.response[0][1].games.win.total;
                 displayStats();
-                console.log('current Team', statsObject.name);
                 document.querySelector('#add-to-favorites').addEventListener('click', addToFavorites)
                 currentTeam = statsObject.name;
+                
                 function addToFavorites() {
                     console.log("favorite")
                     console.log(statsObject.id);
@@ -219,10 +218,10 @@ function getStats(_teamID, _season) {
                         document.querySelector('#add-to-favorites').addEventListener('click', addToFavorites);
                     }
                 }
-                storeLocalFav(statsObject.id,2023, statsObject.name);
-                cTeam = statsObject.name;
-                console.log('From Try',cTeam);
-            }})
+            }
+            
+            storeLocalFav(statsObject.id,2023, statsObject.name);
+            })
              })
     } 
     catch (error) {
@@ -839,9 +838,8 @@ function storeLocalFav(_teamID, _season, _teamName) {
         season : _season,
         teamName: _teamName,
     }
-
     var buonosFavStored = JSON.parse(localStorage.getItem("buonosFav"));
-
+    console.log(buonosFavStored);
     if (buonosFavStored === null) {
         arrayOfFavTeams = [];
         arrayOfFavTeams.push(favTeam);
@@ -849,16 +847,19 @@ function storeLocalFav(_teamID, _season, _teamName) {
         localStorage.setItem("buonosFav", JSON.stringify(arrayOfFavTeams));
     }else{
         for (var i = 0; i < buonosFavStored.length; i++) {
-            if (buonosFavStored[i].teamID == _teamID && buonosFavStored[i].season == _season && buonosFavStored[i].teamName == _teamName) {
+            console.log('Team form storage:',buonosFavStored[i].teamName);
+            console.log('Team entered: ', favTeam.teamName);
+            console.log(buonosFavStored[i].teamName == favTeam.teamName)
+            if (buonosFavStored[i].teamName === favTeam.teamName) {
             console.log('Team is already a fav? TRUE');
             console.log('Team will not stored, as it already exist')
-        } else {
-            console.log('Team is already a fav? FALSE');
-            var currentBuonosFavStored = JSON.parse(localStorage.getItem("buonosFav"));
-            currentBuonosFavStored.push(favTeam);
-            localStorage.setItem("buonosFav", JSON.stringify(currentBuonosFavStored));
+            return;
+            } 
         }
-    }
+        console.log('Team is already a fav? FALSE');
+        var currentBuonosFavStored = JSON.parse(localStorage.getItem("buonosFav"));
+        currentBuonosFavStored.push(favTeam);
+        localStorage.setItem("buonosFav", JSON.stringify(currentBuonosFavStored));
 
     }
 
