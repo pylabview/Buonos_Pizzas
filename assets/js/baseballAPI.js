@@ -82,39 +82,39 @@ var dayArr = [dayObject.today, dayObject.dayAfter1, dayObject.dayAfter2, dayObje
 
 document.querySelector('#choose-team-button').addEventListener('click', chooseTeam);
 
-init();
+// init();
 
-function init() {
-    var locaArr = JSON.parse(localStorage.getItem('favorite-team'));
+// function init() {
+//     var locaArr = JSON.parse(localStorage.getItem('favorite-team'));
 
-    if (locaArr === null) {
-        var favoriteTeamsObject = {
-            id: "",
-            name: ""
-        }
+//     if (locaArr === null) {
+//         var favoriteTeamsObject = {
+//             id: "",
+//             name: ""
+//         }
 
-        favoriteTeamsObject.id = 25; 
-        favoriteTeamsObject.name = 'New York Yankees';
+//         favoriteTeamsObject.id = 25; 
+//         favoriteTeamsObject.name = 'New York Yankees';
 
-        favoriteTeams.push(favoriteTeamsObject);
-        localStorage.setItem('favorite-team', JSON.stringify(favoriteTeams));
-        init();
-    }
-    else {
-        for (var i = 0; i < locaArr.length; i++) {
-            var newTeam = document.createElement('button');
-            newTeam.textContent = locaArr[i].name;
-            document.getElementById("favorite-teams-list").appendChild(newTeam);
+//         favoriteTeams.push(favoriteTeamsObject);
+//         localStorage.setItem('favorite-team', JSON.stringify(favoriteTeams));
+//         // init();
+//     }
+//     else {
+//         for (var i = 0; i < locaArr.length; i++) {
+//             var newTeam = document.createElement('button');
+//             newTeam.textContent = locaArr[i].name;
+//             document.getElementById("favorite-teams-list").appendChild(newTeam);
 
-            favoriteTeams.push(newTeam);
-            console.log(favoriteTeams);
-        }
+//             favoriteTeams.push(newTeam);
+//             console.log(favoriteTeams);
+//         }
 
         
-        console.log(locaArr);
-        start(locaArr[0].id, season);
-    }
-}
+//         console.log(locaArr);
+//         start(locaArr[0].id, season);
+//     }
+// }
 
 function chooseTeam() {
     dayIndex = 0;
@@ -153,6 +153,7 @@ function chooseTeam() {
                         start(finalID, season);
                         parent = document.getElementById('add-buttons');
                         parent.innerHTML = '';
+                        renderFav();
                     }
                 }
                 else {
@@ -198,27 +199,27 @@ function getStats(_teamID, _season) {
                 statsObject.loses = data.response[0][1].games.lose.total;
                 statsObject.wins = data.response[0][1].games.win.total;
                 displayStats();
-                document.querySelector('#add-to-favorites').addEventListener('click', addToFavorites)
+                // document.querySelector('#add-to-favorites').addEventListener('click', addToFavorites)
                 currentTeam = statsObject.name;
                 
-                function addToFavorites() {
-                    console.log("favorite")
-                    console.log(statsObject.id);
+            //     function addToFavorites() {
+            //         console.log("favorite")
+            //         console.log(statsObject.id);
 
-                var indicator = document.querySelector('#add-to-favorites');
+            //     var indicator = document.querySelector('#add-to-favorites');
 
-                for (var i = 0; i < favoriteTeams.length; i++) {
-                    console.log(favoriteTeams);
+            //     for (var i = 0; i < favoriteTeams.length; i++) {
+            //         console.log(favoriteTeams);
                     
-                    if (favoriteTeams[i].id == statsObject.id) {
-                        indicator.textContent = "⭕off!"
-                    }
-                    else {
-                        indicator.textContent = "🟡on!"
-                        document.querySelector('#add-to-favorites').addEventListener('click', addToFavorites);
-                    }
-                }
-            }
+            //         if (favoriteTeams[i].id == statsObject.id) {
+            //             indicator.textContent = "⭕off!"
+            //         }
+            //         else {
+            //             indicator.textContent = "🟡on!"
+            //             document.querySelector('#add-to-favorites').addEventListener('click', addToFavorites);
+            //         }
+            //     }
+            // }
             
             storeLocalFav(statsObject.id,2023, statsObject.name);
             })
@@ -869,6 +870,16 @@ function storeLocalFav(_teamID, _season, _teamName) {
 }
 function renderFav(){
 var buonosFavStored = JSON.parse(localStorage.getItem("buonosFav"));
+ console.log('dropdown length: ',dropDownFavs.length);
+
+for (let i = 0; i < dropDownFavs.options.length; i++) {
+    dropDownFavs.remove(i);
+    
+}
+var optionFavDefault = document.createElement("option");
+optionFavDefault.text = 'Select a favourite team';
+dropDownFavs.add(optionFavDefault);
+
 
 for (let i = 0; i < buonosFavStored.length; i++) {
 var optionFav = document.createElement("option");
